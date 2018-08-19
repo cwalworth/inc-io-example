@@ -1,0 +1,36 @@
+{
+  "name": "io-example",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": {
+    "/": {
+      "target": "http://localhost:5000"
+    },
+    "/socket.io": {
+      "target": "ws://localhost:5000",
+      "ws": true
+    },
+    "/sockjs-node": {
+      "target": "ws://localhost:5000",
+      "ws": true
+    }
+  },
+  "dependencies": {
+    "concurrently": "^3.6.1",
+    "express": "^4.16.3",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "start-dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "server": "nodemon server",
+    "dev": "concurrently \"npm run server\" \"npm run start-dev\""
+  }
+}
