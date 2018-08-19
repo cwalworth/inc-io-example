@@ -3,6 +3,8 @@ import io from 'socket.io-client';
 
 class App extends Component {
   state = {
+    room: false,
+    roomName: '',
     rgb: { r: 0, g: 0, b: 0 },
   };
 
@@ -15,7 +17,6 @@ class App extends Component {
 
   getColor() {
     const { r, g, b } = this.state.rgb;
-
     return `rgb(${r},${g},${b})`;
   }
 
@@ -25,7 +26,22 @@ class App extends Component {
     );
   };
 
+  createRoom = () => {
+    let roomName = Math.random()
+      .toString(36)
+      .replace('0.', '')
+      .substr(0, 5);
+    this.setState({ room: true });
+    this.setState({ roomName }, () => {
+      console.log(`Room created: ${roomName}`);
+      this.socket.emit('createRoom', roomName);
+    });
+  };
+
   render() {
+    if (!this.state.room) {
+      return <button onClick={() => this.createRoom()}>Create</button>;
+    }
     return (
       <div
         className="App"

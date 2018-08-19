@@ -20,6 +20,10 @@ io.on('connection', function(socket) {
 
     io.sockets.emit('update', rgb);
   });
+
+  socket.on('createRoom', roomName => {
+    console.log(`SERVER: ${roomName}`);
+  });
 });
 
 if (process.env.NODE_ENV === 'production') {
